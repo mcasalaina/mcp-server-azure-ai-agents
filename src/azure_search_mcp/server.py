@@ -432,4 +432,5 @@ def main(endpoint: str, api_key: str, index_name: str):
 
 
 if __name__ == "__main__":
+    import sys
     main()
