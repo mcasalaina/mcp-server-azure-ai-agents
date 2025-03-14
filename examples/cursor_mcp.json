@@ -1,0 +1,14 @@
+{
+    "mcpServers": {
+      "azure-search": {
+        "command": "/PATH/TO/python",
+        "args": [
+          "-m",
+          "azure_search_mcp.server",
+          "--endpoint", "https://<your-search-service>.search.windows.net",
+          "--api-key", "<your-api-key>",
+          "--index-name", "<your-index-name>"
+        ]
+      }
+    }
+  }
