@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Azure AI Search MCP Server for Claude Desktop."""
 
 import os
