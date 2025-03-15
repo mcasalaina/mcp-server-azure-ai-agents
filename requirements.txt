@@ -1,0 +1,5 @@
+# requirements.txt
+azure-search-documents==11.5.2
+azure-identity
+python-dotenv
+mcp[cli]
