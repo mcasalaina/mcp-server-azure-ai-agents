@@ -1,4 +1,4 @@
-"""Azure AI Agent Service MCP Server for Claude Desktop using AzureAISearch and Bing Web Grounding Tools."""
+"""Azure AI Agent Service MCP Server for Claude Desktop using Azure AI Search and Bing Web Grounding Tools."""
 
 import os
 import sys
