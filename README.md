@@ -64,11 +64,9 @@ This project provides two MCP server implementations to connect Claude Desktop w
 2. **Create a `.env` File:**
 
    ```bash
-   echo "PROJECT_CONNECTION_STRING=your-project-connection-string" > .env
+   echo "PROJECT_ENDPOINT=your-project-endpoint" > .env
    echo "MODEL_DEPLOYMENT_NAME=your-model-deployment-name" >> .env
-   echo "AI_SEARCH_CONNECTION_NAME=your-search-connection-name" >> .env
    echo "BING_CONNECTION_NAME=your-bing-connection-name" >> .env
-   echo "AI_SEARCH_INDEX_NAME=your-index-name" >> .env
    ```
 
 3. **Set Up Virtual Environment:**
@@ -79,7 +77,7 @@ This project provides two MCP server implementations to connect Claude Desktop w
    uv pip install "mcp[cli]" azure-identity python-dotenv azure-ai-projects
    ```
 
-4. **Use the `azure_ai_agent_service_server.py` script** for integration with Azure AI Agent Service.
+4. **Use the `azure_agent_with_bing.py` script** for integration with Azure AI Agent Service and Bing Web Grounding.
 
 ### Azure AI Agent Service Setup
 
@@ -87,11 +85,11 @@ Before using the implementation, you need to:
 
 1. **Create an Azure AI Project:**
    - Go to the Azure Portal and create a new Azure AI Project
-   - Note the project connection string and model deployment name
+   - Note the project endpoint (not connection string)
 
-2. **Create an Azure AI Search Connection:**
-   - In your Azure AI Project, add a connection to your Azure AI Search service
-   - Note the connection name and index name
+2. **Deploy a Model:**
+   - In your Azure AI Project, deploy a model (e.g., GPT-4o)
+   - Note the deployment name
 
 3. **Create a Bing Web Search Connection:**
    - In your Azure AI Project, add a connection to Bing Search service
@@ -109,13 +107,11 @@ Before using the implementation, you need to:
   "mcpServers": {
     "azure-ai-agent": {
       "command": "C:\\path\\to\\.venv\\Scripts\\python.exe",
-      "args": ["C:\\path\\to\\azure_ai_agent_service_server.py"],
+      "args": ["C:\\path\\to\\azure_agent_with_bing.py"],
       "env": {
-        "PROJECT_CONNECTION_STRING": "your-project-connection-string",
+        "PROJECT_ENDPOINT": "https://your-project-name.cognitiveservices.azure.com/",
         "MODEL_DEPLOYMENT_NAME": "your-model-deployment-name",
-        "AI_SEARCH_CONNECTION_NAME": "your-search-connection-name",
-        "BING_CONNECTION_NAME": "your-bing-connection-name",
-        "AI_SEARCH_INDEX_NAME": "your-index-name"
+        "BING_CONNECTION_NAME": "your-bing-connection-name"
       }
     }
   }
