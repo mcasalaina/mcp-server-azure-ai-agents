@@ -1,6 +1,6 @@
-# Azure AI Agent Service + Azure AI Search MCP Server
+# Azure AI Agent Service + Bing Web Search MCP Server
 
-A Model Context Protocol (MCP) server that enables Claude Desktop to search your content using Azure AI services. Choose between Azure AI Agent Service (with both document search and web search) or direct Azure AI Search integration.
+A Model Context Protocol (MCP) server that enables MCP Consumers to search web content using Azure AI services.
 
 ![demo](images/demo.gif)
 
@@ -8,44 +8,32 @@ A Model Context Protocol (MCP) server that enables Claude Desktop to search your
 
 ## Overview
 
-This project provides two MCP server implementations to connect Claude Desktop with Azure search capabilities:
+This project provides an MCP server implementation to connect MCP consumers with Azure search capabilities:
 
 1. **Azure AI Agent Service Implementation (Recommended)** - Uses the powerful Azure AI Agent Service to provide:
-   - **Azure AI Search Tool** - Search your indexed documents with AI-enhanced results
    - **Bing Web Grounding Tool** - Search the web with source citations
-
-2. **Direct Azure AI Search Implementation** - Connects directly to Azure AI Search with three methods:
-   - **Keyword Search** - Exact lexical matches
-   - **Vector Search** - Semantic similarity using embeddings
-   - **Hybrid Search** - Combination of keyword and vector searches
 
 ---
 
 ## Features
 
-- **AI-Enhanced Search** - Azure AI Agent Service optimizes search results with intelligent processing
-- **Multiple Data Sources** - Search both your private documents and the public web
+- **AI-Enhanced Bing Search** - Azure AI Agent Service optimizes search results with intelligent processing
 - **Source Citations** - Web search results include citations to original sources
-- **Flexible Implementation** - Choose between Azure AI Agent Service or direct Azure AI Search integration
-- **Seamless Claude Integration** - All search capabilities accessible through Claude Desktop's interface
 - **Customizable** - Easy to extend or modify search behavior
 
 ---
 
 ## Quick Links
 
-- [Get Started with Azure AI Search](https://learn.microsoft.com/en-us/azure/search/search-get-started-portal)
 - [Azure AI Agent Service Quickstart](https://learn.microsoft.com/en-us/azure/ai-studio/how-to/agent-quickstart)
 
 ---
 
 ## Requirements
 
-- **Python:** Version 3.10 or higher
-- **Claude Desktop:** Latest version
+- **Python:** Version 3.13 or higher
 - **Azure Resources:** 
-  - Azure AI Search service with an index containing vectorized text data
-  - For Agent Service: Azure AI Project with Azure AI Search and Bing connections
+  - Azure AI Project with Bing connection
 - **Operating System:** Windows or macOS (instructions provided for Windows, but adaptable)
 
 ---
@@ -68,6 +56,8 @@ This project provides two MCP server implementations to connect Claude Desktop w
    echo "MODEL_DEPLOYMENT_NAME=your-model-deployment-name" >> .env
    echo "BING_CONNECTION_NAME=your-bing-connection-name" >> .env
    ```
+
+   Note that the Bing Connection name is actually the _id_ of the Bing Connection, not its name. So it should look like /subscriptions/<your subscription ID>/resourceGroups/<your resource group name>/providers/Microsoft.CognitiveServices/accounts/<your Foundry project resource name>/projects/<your Foundry project name>/connections/<your Bing connection name>.
 
 3. **Set Up Virtual Environment:**
 
@@ -100,7 +90,9 @@ Before using the implementation, you need to:
    az login
    ```
 
-### Configuring Claude Desktop
+### Configuring MCP Consumer
+
+This works for MCP consumers such as Claude Desktop and VS Code.
 
 ```json
 {
@@ -121,55 +113,6 @@ Before using the implementation, you need to:
 > **Note:** Replace path placeholders with your actual project paths.
 
 ---
-
-## Direct Azure AI Search Implementation
-
-For those who prefer direct Azure AI Search integration without the Agent Service:
-
-1. **Create a different `.env` File:**
-
-   ```bash
-   echo "AZURE_SEARCH_SERVICE_ENDPOINT=https://your-service-name.search.windows.net" > .env
-   echo "AZURE_SEARCH_INDEX_NAME=your-index-name" >> .env
-   echo "AZURE_SEARCH_API_KEY=your-api-key" >> .env
-   ```
-
-2. **Install Dependencies:**
-
-   ```bash
-   uv pip install "mcp[cli]" azure-search-documents==11.5.2 azure-identity python-dotenv
-   ```
-
-3. **Use the `azure_search_server.py` script** for direct integration with Azure AI Search.
-
-4. **Configure Claude Desktop:**
-
-   ```json
-   {
-     "mcpServers": {
-       "azure-search": {
-         "command": "C:\\path\\to\\.venv\\Scripts\\python.exe",
-         "args": ["C:\\path\\to\\azure_search_server.py"],
-         "env": {
-           "AZURE_SEARCH_SERVICE_ENDPOINT": "https://your-service-name.search.windows.net",
-           "AZURE_SEARCH_INDEX_NAME": "your-index-name",
-           "AZURE_SEARCH_API_KEY": "your-api-key"
-         }
-       }
-     }
-   }
-   ```
-
----
-
-## Testing the Server
-
-1. **Restart Claude Desktop** to load the new configuration
-2. Look for the MCP tools icon (hammer icon) in the bottom-right of the input field
-3. Try queries such as:
-   - "Search for information about AI in my Azure Search index"
-   - "Search the web for the latest developments in LLMs"
-   - "Find information about neural networks using hybrid search"
 
 ---
 
